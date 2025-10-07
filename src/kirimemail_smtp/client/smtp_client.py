@@ -396,7 +396,7 @@ class SmtpClient:
                                 continue
 
         except (httpx.TimeoutException, httpx.NetworkError) as e:
-            raise ApiException(f"Streaming failed: {e}")
+            raise ApiException(f"Streaming failed: {e}") from e
 
     def set_base_url(self, base_url: str) -> None:
         """
