@@ -2,7 +2,7 @@
 Exception raised when a resource is not found (404).
 """
 
-from typing import Any, Dict, Optional
+from typing import Any, Optional
 
 from .api_exception import ApiException
 
@@ -18,8 +18,8 @@ class NotFoundException(ApiException):
         self,
         message: str = "Resource not found",
         status_code: Optional[int] = None,
-        errors: Optional[Dict[str, Any]] = None,
-        response: Optional[Dict[str, Any]] = None
+        errors: Optional[dict[str, Any]] = None,
+        response: Optional[dict[str, Any]] = None
     ) -> None:
         super().__init__(message, status_code or 404, errors, response)
         self.name = "NotFoundException"

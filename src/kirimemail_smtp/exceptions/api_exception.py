@@ -2,7 +2,7 @@
 Base exception class for all API-related errors.
 """
 
-from typing import Any, Dict, Optional
+from typing import Any, Optional
 
 
 class ApiException(Exception):
@@ -20,8 +20,8 @@ class ApiException(Exception):
         self,
         message: str,
         status_code: Optional[int] = None,
-        errors: Optional[Dict[str, Any]] = None,
-        response: Optional[Dict[str, Any]] = None
+        errors: Optional[dict[str, Any]] = None,
+        response: Optional[dict[str, Any]] = None
     ) -> None:
         super().__init__(message)
         self.message = message
@@ -58,7 +58,7 @@ class ApiException(Exception):
             return [str(error) for error in field_errors]
         return [str(field_errors)]
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         """Convert exception to dictionary representation."""
         return {
             "name": self.name,

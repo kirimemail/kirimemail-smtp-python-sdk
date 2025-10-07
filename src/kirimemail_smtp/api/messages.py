@@ -2,7 +2,7 @@
 Messages API for sending emails and templates.
 """
 
-from typing import Any, Dict, List, Optional
+from typing import Any, Optional
 
 from ..client.smtp_client import SmtpClient
 from ..exceptions import ApiException
@@ -25,8 +25,8 @@ class MessagesApi:
     async def send_message(
         self,
         domain: str,
-        message: Dict[str, Any],
-    ) -> Dict[str, Any]:
+        message: dict[str, Any],
+    ) -> dict[str, Any]:
         """
         Send a simple email.
 
@@ -50,9 +50,9 @@ class MessagesApi:
     async def send_message_with_attachments(
         self,
         domain: str,
-        message: Dict[str, Any],
-        files: List[Dict[str, Any]],
-    ) -> Dict[str, Any]:
+        message: dict[str, Any],
+        files: list[dict[str, Any]],
+    ) -> dict[str, Any]:
         """
         Send an email with attachments.
 
@@ -79,8 +79,8 @@ class MessagesApi:
     async def send_template_message(
         self,
         domain: str,
-        template: Dict[str, Any],
-    ) -> Dict[str, Any]:
+        template: dict[str, Any],
+    ) -> dict[str, Any]:
         """
         Send a template email.
 
@@ -104,9 +104,9 @@ class MessagesApi:
     async def send_template_message_with_attachments(
         self,
         domain: str,
-        template: Dict[str, Any],
-        files: List[Dict[str, Any]],
-    ) -> Dict[str, Any]:
+        template: dict[str, Any],
+        files: list[dict[str, Any]],
+    ) -> dict[str, Any]:
         """
         Send a template email with attachments.
 
@@ -133,9 +133,9 @@ class MessagesApi:
     async def send_bulk_message(
         self,
         domain: str,
-        message: Dict[str, Any],
-        files: Optional[List[Dict[str, Any]]] = None,
-    ) -> Dict[str, Any]:
+        message: dict[str, Any],
+        files: Optional[list[dict[str, Any]]] = None,
+    ) -> dict[str, Any]:
         """
         Send bulk email to multiple recipients.
 
@@ -168,10 +168,10 @@ class MessagesApi:
     async def send_message_with_attachment_options(
         self,
         domain: str,
-        message: Dict[str, Any],
-        files: List[Dict[str, Any]],
-        attachment_options: Dict[str, Any],
-    ) -> Dict[str, Any]:
+        message: dict[str, Any],
+        files: list[dict[str, Any]],
+        attachment_options: dict[str, Any],
+    ) -> dict[str, Any]:
         """
         Send email with attachment processing options.
 
@@ -199,7 +199,7 @@ class MessagesApi:
             files=files,
         )
 
-    def _validate_email_message(self, message: Dict[str, Any]) -> None:
+    def _validate_email_message(self, message: dict[str, Any]) -> None:
         """
         Validate email message data.
 
@@ -234,7 +234,7 @@ class MessagesApi:
         if not message.get("text") and not message.get("html"):
             raise ApiException("Either 'text' or 'html' content must be provided")
 
-    def _validate_template_message(self, template: Dict[str, Any]) -> None:
+    def _validate_template_message(self, template: dict[str, Any]) -> None:
         """
         Validate template message data.
 
@@ -265,7 +265,7 @@ class MessagesApi:
         if "from" in template and not self._is_valid_email(template["from"]):
             raise ApiException(f"Invalid email format for 'from' field: {template['from']}")
 
-    def _validate_bulk_message(self, message: Dict[str, Any]) -> None:
+    def _validate_bulk_message(self, message: dict[str, Any]) -> None:
         """
         Validate bulk message data.
 
@@ -287,7 +287,7 @@ class MessagesApi:
         if len(message["to"]) == 0:
             raise ApiException("At least one recipient is required for bulk email")
 
-    def _validate_files(self, files: List[Dict[str, Any]]) -> None:
+    def _validate_files(self, files: list[dict[str, Any]]) -> None:
         """
         Validate file upload data.
 

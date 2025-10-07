@@ -2,7 +2,7 @@
 Domains API for domain management.
 """
 
-from typing import Any, Dict, Optional
+from typing import Any, Optional
 
 from ..client.smtp_client import SmtpClient
 from ..exceptions import ApiException
@@ -26,7 +26,7 @@ class DomainsApi:
         self,
         limit: Optional[int] = None,
         page: Optional[int] = None,
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         """
         List all domains.
 
@@ -49,7 +49,7 @@ class DomainsApi:
         self,
         domain: str,
         dkim_key_length: int = 2048,
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         """
         Create a new domain.
 
@@ -70,7 +70,7 @@ class DomainsApi:
 
         return await self.client.post("/api/domains", data=data)
 
-    async def get_domain(self, domain: str) -> Dict[str, Any]:
+    async def get_domain(self, domain: str) -> dict[str, Any]:
         """
         Get domain details.
 
@@ -85,8 +85,8 @@ class DomainsApi:
     async def update_domain(
         self,
         domain: str,
-        config: Dict[str, Any],
-    ) -> Dict[str, Any]:
+        config: dict[str, Any],
+    ) -> dict[str, Any]:
         """
         Update domain configuration.
 
@@ -99,7 +99,7 @@ class DomainsApi:
         """
         return await self.client.put(f"/api/domains/{domain}", data=config)
 
-    async def delete_domain(self, domain: str) -> Dict[str, Any]:
+    async def delete_domain(self, domain: str) -> dict[str, Any]:
         """
         Delete a domain.
 
@@ -114,8 +114,8 @@ class DomainsApi:
     async def setup_auth_domain(
         self,
         domain: str,
-        config: Dict[str, Any],
-    ) -> Dict[str, Any]:
+        config: dict[str, Any],
+    ) -> dict[str, Any]:
         """
         Set up authentication domain.
 
@@ -128,7 +128,7 @@ class DomainsApi:
         """
         return await self.client.post(f"/api/domains/{domain}/setup-auth-domain", data=config)
 
-    async def verify_mandatory_records(self, domain: str) -> Dict[str, Any]:
+    async def verify_mandatory_records(self, domain: str) -> dict[str, Any]:
         """
         Verify mandatory DNS records.
 
@@ -140,7 +140,7 @@ class DomainsApi:
         """
         return await self.client.post(f"/api/domains/{domain}/verify-mandatory")
 
-    async def verify_auth_domain_records(self, domain: str) -> Dict[str, Any]:
+    async def verify_auth_domain_records(self, domain: str) -> dict[str, Any]:
         """
         Verify authentication domain records.
 
@@ -156,7 +156,7 @@ class DomainsApi:
         self,
         domain: str,
         tracking_domain: str,
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         """
         Set up tracking domain.
 
@@ -170,7 +170,7 @@ class DomainsApi:
         data = {"tracking_domain": tracking_domain}
         return await self.client.post(f"/api/domains/{domain}/setup-tracklink", data=data)
 
-    async def verify_tracklink(self, domain: str) -> Dict[str, Any]:
+    async def verify_tracklink(self, domain: str) -> dict[str, Any]:
         """
         Verify tracking domain.
 

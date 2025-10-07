@@ -3,7 +3,7 @@ Log entry model for email logs.
 """
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Optional
 
 from pydantic import BaseModel, Field
 
@@ -25,8 +25,8 @@ class LogEntry(BaseModel):
     user_agent: Optional[str] = Field(None, description="User agent")
     created_at: Optional[datetime] = Field(None, description="Creation timestamp")
     updated_at: Optional[datetime] = Field(None, description="Last update timestamp")
-    metadata: Optional[Dict[str, Any]] = Field(None, description="Additional metadata")
-    tags: Optional[List[str]] = Field(None, description="Tags")
+    metadata: Optional[dict[str, Any]] = Field(None, description="Additional metadata")
+    tags: Optional[list[str]] = Field(None, description="Tags")
 
     class Config:
         """Pydantic configuration."""

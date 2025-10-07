@@ -4,7 +4,8 @@ HTTP client for the Kirim.Email SMTP API.
 
 import asyncio
 import base64
-from typing import Any, AsyncGenerator, Dict, List, Optional
+from collections.abc import AsyncGenerator
+from typing import Any, Optional
 
 import httpx
 
@@ -68,9 +69,9 @@ class SmtpClient:
         """Close the HTTP client."""
         await self._client.aclose()
 
-    def _get_auth_headers(self) -> Dict[str, str]:
+    def _get_auth_headers(self) -> dict[str, str]:
         """Get authentication headers."""
-        headers: Dict[str, str] = {
+        headers: dict[str, str] = {
             "User-Agent": "kirimemail-smtp-sdk/1.0.0",
             "Accept": "application/json",
         }
@@ -87,7 +88,7 @@ class SmtpClient:
         method: str,
         endpoint: str,
         **kwargs: Any
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         """
         Make an HTTP request with authentication and error handling.
 
@@ -142,7 +143,7 @@ class SmtpClient:
             raise ApiException(f"Request failed after {self.retries + 1} attempts: {last_exception}")
         raise ApiException(f"Request failed after {self.retries + 1} attempts")
 
-    async def _handle_response(self, response: httpx.Response) -> Dict[str, Any]:
+    async def _handle_response(self, response: httpx.Response) -> dict[str, Any]:
         """
         Handle HTTP response and raise appropriate exceptions.
 
@@ -186,9 +187,9 @@ class SmtpClient:
     async def get(
         self,
         endpoint: str,
-        params: Optional[Dict[str, Any]] = None,
-        headers: Optional[Dict[str, str]] = None,
-    ) -> Dict[str, Any]:
+        params: Optional[dict[str, Any]] = None,
+        headers: Optional[dict[str, str]] = None,
+    ) -> dict[str, Any]:
         """
         Make a GET request.
 
@@ -210,9 +211,9 @@ class SmtpClient:
     async def post(
         self,
         endpoint: str,
-        data: Optional[Dict[str, Any]] = None,
-        headers: Optional[Dict[str, str]] = None,
-    ) -> Dict[str, Any]:
+        data: Optional[dict[str, Any]] = None,
+        headers: Optional[dict[str, str]] = None,
+    ) -> dict[str, Any]:
         """
         Make a POST request with JSON data.
 
@@ -234,10 +235,10 @@ class SmtpClient:
     async def post_multipart(
         self,
         endpoint: str,
-        data: Optional[Dict[str, Any]] = None,
-        files: Optional[List[Dict[str, Any]]] = None,
-        headers: Optional[Dict[str, str]] = None,
-    ) -> Dict[str, Any]:
+        data: Optional[dict[str, Any]] = None,
+        files: Optional[list[dict[str, Any]]] = None,
+        headers: Optional[dict[str, str]] = None,
+    ) -> dict[str, Any]:
         """
         Make a POST request with multipart form data.
 
@@ -251,8 +252,8 @@ class SmtpClient:
             Response data as dictionary
         """
         # Prepare multipart data
-        multipart_data: Dict[str, Any] = {}
-        files_data: Dict[str, Any] = {}
+        multipart_data: dict[str, Any] = {}
+        files_data: dict[str, Any] = {}
 
         # Add form fields
         if data:
@@ -287,9 +288,9 @@ class SmtpClient:
     async def put(
         self,
         endpoint: str,
-        data: Optional[Dict[str, Any]] = None,
-        headers: Optional[Dict[str, str]] = None,
-    ) -> Dict[str, Any]:
+        data: Optional[dict[str, Any]] = None,
+        headers: Optional[dict[str, str]] = None,
+    ) -> dict[str, Any]:
         """
         Make a PUT request.
 
@@ -311,9 +312,9 @@ class SmtpClient:
     async def delete(
         self,
         endpoint: str,
-        params: Optional[Dict[str, Any]] = None,
-        headers: Optional[Dict[str, str]] = None,
-    ) -> Dict[str, Any]:
+        params: Optional[dict[str, Any]] = None,
+        headers: Optional[dict[str, str]] = None,
+    ) -> dict[str, Any]:
         """
         Make a DELETE request.
 
@@ -335,9 +336,9 @@ class SmtpClient:
     async def stream(
         self,
         endpoint: str,
-        params: Optional[Dict[str, Any]] = None,
-        headers: Optional[Dict[str, str]] = None,
-    ) -> AsyncGenerator[Dict[str, Any], None]:
+        params: Optional[dict[str, Any]] = None,
+        headers: Optional[dict[str, str]] = None,
+    ) -> AsyncGenerator[dict[str, Any], None]:
         """
         Stream response data (for log streaming).
 

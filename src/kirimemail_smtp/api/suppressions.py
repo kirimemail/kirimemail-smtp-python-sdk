@@ -3,7 +3,7 @@ Suppressions API for email suppression management.
 """
 
 from datetime import datetime
-from typing import Any, Dict, Optional
+from typing import Any, Optional
 
 from ..client.smtp_client import SmtpClient
 
@@ -28,7 +28,7 @@ class SuppressionsApi:
         limit: Optional[int] = None,
         page: Optional[int] = None,
         type: Optional[str] = None,
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         """
         Get suppressions for a domain.
 
@@ -56,7 +56,7 @@ class SuppressionsApi:
         domain: str,
         limit: Optional[int] = None,
         page: Optional[int] = None,
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         """
         Get unsubscribe suppressions.
 
@@ -81,7 +81,7 @@ class SuppressionsApi:
         domain: str,
         limit: Optional[int] = None,
         page: Optional[int] = None,
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         """
         Get bounce suppressions.
 
@@ -106,7 +106,7 @@ class SuppressionsApi:
         domain: str,
         limit: Optional[int] = None,
         page: Optional[int] = None,
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         """
         Get whitelist suppressions.
 
@@ -132,7 +132,7 @@ class SuppressionsApi:
         type: str,
         limit: Optional[int] = None,
         page: Optional[int] = None,
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         """
         Get suppressions by type.
 
@@ -161,8 +161,8 @@ class SuppressionsApi:
         self,
         domain: str,
         search: str,
-        additional_params: Optional[Dict[str, Any]] = None,
-    ) -> Dict[str, Any]:
+        additional_params: Optional[dict[str, Any]] = None,
+    ) -> dict[str, Any]:
         """
         Search suppressions.
 
@@ -186,8 +186,8 @@ class SuppressionsApi:
         domain: str,
         page: int = 1,
         per_page: int = 10,
-        additional_params: Optional[Dict[str, Any]] = None,
-    ) -> Dict[str, Any]:
+        additional_params: Optional[dict[str, Any]] = None,
+    ) -> dict[str, Any]:
         """
         Get suppressions with pagination.
 
@@ -214,8 +214,8 @@ class SuppressionsApi:
         self,
         domain: str,
         start_date: datetime,
-        additional_params: Optional[Dict[str, Any]] = None,
-    ) -> Dict[str, Any]:
+        additional_params: Optional[dict[str, Any]] = None,
+    ) -> dict[str, Any]:
         """
         Get suppressions created after a date.
 

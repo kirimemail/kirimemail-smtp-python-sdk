@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+- **BREAKING**: Updated minimum Python version from 3.8 to 3.9+
+- Modernized type hints to use built-in `dict` and `list` instead of `typing.Dict` and `typing.List`
+- Updated ruff configuration to use modern `lint` section format
+- Improved exception chaining with proper `from` syntax
+
 ### Added
 - Publishing documentation and version management guide
 

@@ -2,8 +2,9 @@
 Logs API for email log retrieval and streaming.
 """
 
+from collections.abc import AsyncGenerator
 from datetime import datetime
-from typing import Any, AsyncGenerator, Dict, Optional
+from typing import Any, Optional
 
 from ..client.smtp_client import SmtpClient
 
@@ -31,7 +32,7 @@ class LogsApi:
         end: Optional[datetime] = None,
         sender: Optional[str] = None,
         recipient: Optional[str] = None,
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         """
         Get email logs for a domain.
 
@@ -67,7 +68,7 @@ class LogsApi:
         self,
         domain: str,
         message_guid: str,
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         """
         Get logs for a specific message.
 
@@ -88,7 +89,7 @@ class LogsApi:
         end: Optional[datetime] = None,
         sender: Optional[str] = None,
         recipient: Optional[str] = None,
-    ) -> AsyncGenerator[Dict[str, Any], None]:
+    ) -> AsyncGenerator[dict[str, Any], None]:
         """
         Stream email logs for a domain.
 
@@ -127,7 +128,7 @@ class LogsApi:
         page: Optional[int] = None,
         sender: Optional[str] = None,
         recipient: Optional[str] = None,
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         """
         Get logs within a date range.
 

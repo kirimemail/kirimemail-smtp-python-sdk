@@ -2,7 +2,7 @@
 Credentials API for SMTP credential management.
 """
 
-from typing import Any, Dict, Optional
+from typing import Any, Optional
 
 from ..client.smtp_client import SmtpClient
 
@@ -26,7 +26,7 @@ class CredentialsApi:
         domain: str,
         limit: Optional[int] = None,
         page: Optional[int] = None,
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         """
         List credentials for a domain.
 
@@ -50,7 +50,7 @@ class CredentialsApi:
         self,
         domain: str,
         username: str,
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         """
         Create a new SMTP credential.
 
@@ -68,7 +68,7 @@ class CredentialsApi:
         self,
         domain: str,
         credential: str,
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         """
         Get credential details.
 
@@ -85,7 +85,7 @@ class CredentialsApi:
         self,
         domain: str,
         credential: str,
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         """
         Delete a credential.
 
@@ -102,7 +102,7 @@ class CredentialsApi:
         self,
         domain: str,
         credential: str,
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         """
         Reset credential password.
 

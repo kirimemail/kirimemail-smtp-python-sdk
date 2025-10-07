@@ -3,7 +3,7 @@ Domain model for domain management.
 """
 
 from datetime import datetime
-from typing import Any, Dict, Optional
+from typing import Any, Optional
 
 from pydantic import BaseModel, Field
 
@@ -17,7 +17,7 @@ class Domain(BaseModel):
     dkim_selector: Optional[str] = Field(None, description="DKIM selector")
     dkim_key_length: Optional[int] = Field(None, description="DKIM key length")
     is_verified: Optional[bool] = Field(None, description="Whether the domain is verified")
-    tracking_settings: Optional[Dict[str, Any]] = Field(None, description="Tracking settings")
+    tracking_settings: Optional[dict[str, Any]] = Field(None, description="Tracking settings")
     created_at: Optional[datetime] = Field(None, description="Creation timestamp")
     updated_at: Optional[datetime] = Field(None, description="Last update timestamp")
 
