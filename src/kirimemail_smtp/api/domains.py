@@ -16,7 +16,7 @@ class DomainsApi:
     def __init__(self, client: SmtpClient) -> None:
         """
         Initialize the Domains API.
-        
+
         Args:
             client: SMTP client instance
         """
@@ -29,11 +29,11 @@ class DomainsApi:
     ) -> Dict[str, Any]:
         """
         List all domains.
-        
+
         Args:
             limit: Number of domains per page
             page: Page number
-            
+
         Returns:
             List of domains with pagination
         """
@@ -52,11 +52,11 @@ class DomainsApi:
     ) -> Dict[str, Any]:
         """
         Create a new domain.
-        
+
         Args:
             domain: Domain name
             dkim_key_length: DKIM key length (1024 or 2048)
-            
+
         Returns:
             Created domain data
         """
@@ -73,10 +73,10 @@ class DomainsApi:
     async def get_domain(self, domain: str) -> Dict[str, Any]:
         """
         Get domain details.
-        
+
         Args:
             domain: Domain name
-            
+
         Returns:
             Domain data
         """
@@ -89,11 +89,11 @@ class DomainsApi:
     ) -> Dict[str, Any]:
         """
         Update domain configuration.
-        
+
         Args:
             domain: Domain name
             config: Configuration updates
-            
+
         Returns:
             Updated domain data
         """
@@ -102,10 +102,10 @@ class DomainsApi:
     async def delete_domain(self, domain: str) -> Dict[str, Any]:
         """
         Delete a domain.
-        
+
         Args:
             domain: Domain name
-            
+
         Returns:
             Deletion response
         """
@@ -118,11 +118,11 @@ class DomainsApi:
     ) -> Dict[str, Any]:
         """
         Set up authentication domain.
-        
+
         Args:
             domain: Domain name
             config: Authentication domain configuration
-            
+
         Returns:
             Setup response
         """
@@ -131,10 +131,10 @@ class DomainsApi:
     async def verify_mandatory_records(self, domain: str) -> Dict[str, Any]:
         """
         Verify mandatory DNS records.
-        
+
         Args:
             domain: Domain name
-            
+
         Returns:
             Verification response
         """
@@ -143,10 +143,10 @@ class DomainsApi:
     async def verify_auth_domain_records(self, domain: str) -> Dict[str, Any]:
         """
         Verify authentication domain records.
-        
+
         Args:
             domain: Domain name
-            
+
         Returns:
             Verification response
         """
@@ -159,11 +159,11 @@ class DomainsApi:
     ) -> Dict[str, Any]:
         """
         Set up tracking domain.
-        
+
         Args:
             domain: Domain name
             tracking_domain: Tracking domain name
-            
+
         Returns:
             Setup response
         """
@@ -173,10 +173,10 @@ class DomainsApi:
     async def verify_tracklink(self, domain: str) -> Dict[str, Any]:
         """
         Verify tracking domain.
-        
+
         Args:
             domain: Domain name
-            
+
         Returns:
             Verification response
         """

@@ -16,7 +16,7 @@ class SuppressionsApi:
     def __init__(self, client: SmtpClient) -> None:
         """
         Initialize the Suppressions API.
-        
+
         Args:
             client: SMTP client instance
         """
@@ -31,21 +31,21 @@ class SuppressionsApi:
     ) -> Dict[str, Any]:
         """
         Get suppressions for a domain.
-        
+
         Args:
             domain: Domain name
             limit: Number of suppressions per page
             page: Page number
             type: Suppression type filter (bounce, unsubscribe, whitelist)
-            
+
         Returns:
             Suppressions with pagination
         """
         params = {}
         if limit is not None:
-            params["limit"] = limit
+            params["limit"] = str(limit)
         if page is not None:
-            params["page"] = page
+            params["page"] = str(page)
         if type is not None:
             params["type"] = type
 
@@ -59,20 +59,20 @@ class SuppressionsApi:
     ) -> Dict[str, Any]:
         """
         Get unsubscribe suppressions.
-        
+
         Args:
             domain: Domain name
             limit: Number of suppressions per page
             page: Page number
-            
+
         Returns:
             Unsubscribe suppressions with pagination
         """
         params = {}
         if limit is not None:
-            params["limit"] = limit
+            params["limit"] = str(limit)
         if page is not None:
-            params["page"] = page
+            params["page"] = str(page)
 
         return await self.client.get(f"/api/domains/{domain}/suppressions/unsubscribes", params=params)
 
@@ -84,20 +84,20 @@ class SuppressionsApi:
     ) -> Dict[str, Any]:
         """
         Get bounce suppressions.
-        
+
         Args:
             domain: Domain name
             limit: Number of suppressions per page
             page: Page number
-            
+
         Returns:
             Bounce suppressions with pagination
         """
         params = {}
         if limit is not None:
-            params["limit"] = limit
+            params["limit"] = str(limit)
         if page is not None:
-            params["page"] = page
+            params["page"] = str(page)
 
         return await self.client.get(f"/api/domains/{domain}/suppressions/bounces", params=params)
 
@@ -109,20 +109,20 @@ class SuppressionsApi:
     ) -> Dict[str, Any]:
         """
         Get whitelist suppressions.
-        
+
         Args:
             domain: Domain name
             limit: Number of suppressions per page
             page: Page number
-            
+
         Returns:
             Whitelist suppressions with pagination
         """
         params = {}
         if limit is not None:
-            params["limit"] = limit
+            params["limit"] = str(limit)
         if page is not None:
-            params["page"] = page
+            params["page"] = str(page)
 
         return await self.client.get(f"/api/domains/{domain}/suppressions/whitelist", params=params)
 
@@ -135,13 +135,13 @@ class SuppressionsApi:
     ) -> Dict[str, Any]:
         """
         Get suppressions by type.
-        
+
         Args:
             domain: Domain name
             type: Suppression type (bounce, unsubscribe, whitelist)
             limit: Number of suppressions per page
             page: Page number
-            
+
         Returns:
             Suppressions with pagination
         """
@@ -151,9 +151,9 @@ class SuppressionsApi:
 
         params = {}
         if limit is not None:
-            params["limit"] = limit
+            params["limit"] = str(limit)
         if page is not None:
-            params["page"] = page
+            params["page"] = str(page)
 
         return await self.client.get(f"/api/domains/{domain}/suppressions/{type}", params=params)
 
@@ -165,12 +165,12 @@ class SuppressionsApi:
     ) -> Dict[str, Any]:
         """
         Search suppressions.
-        
+
         Args:
             domain: Domain name
             search: Search term
             additional_params: Additional query parameters
-            
+
         Returns:
             Search results with pagination
         """
@@ -190,13 +190,13 @@ class SuppressionsApi:
     ) -> Dict[str, Any]:
         """
         Get suppressions with pagination.
-        
+
         Args:
             domain: Domain name
             page: Page number
             per_page: Items per page
             additional_params: Additional query parameters
-            
+
         Returns:
             Suppressions with pagination
         """
@@ -218,12 +218,12 @@ class SuppressionsApi:
     ) -> Dict[str, Any]:
         """
         Get suppressions created after a date.
-        
+
         Args:
             domain: Domain name
             start_date: Start date
             additional_params: Additional query parameters
-            
+
         Returns:
             Suppressions with pagination
         """

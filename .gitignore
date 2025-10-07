@@ -169,3 +169,4 @@ cython_debug/
 .uv_cache/
 .ruff_cache/
 test_env/
+PUBLISHING.md

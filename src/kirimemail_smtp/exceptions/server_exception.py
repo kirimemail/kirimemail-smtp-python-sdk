@@ -10,7 +10,7 @@ from .api_exception import ApiException
 class ServerException(ApiException):
     """
     Exception raised for server-side errors.
-    
+
     Typically raised when the API returns 5xx status codes.
     """
 

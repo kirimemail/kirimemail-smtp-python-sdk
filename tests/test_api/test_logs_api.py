@@ -40,7 +40,7 @@ class TestLogsApi:
         
         assert result["success"] is True
         assert len(result["data"]) == 2
-        mock_smtp_client.get.assert_called_once_with("/api/domains/example.com/log", params={"limit": 10, "page": 1})
+        mock_smtp_client.get.assert_called_once_with("/api/domains/example.com/log", params={"limit": "10", "page": "1"})
     
     @pytest.mark.asyncio
     async def test_get_logs_with_filters(self, mock_smtp_client):

@@ -16,7 +16,7 @@ class MessagesApi:
     def __init__(self, client: SmtpClient) -> None:
         """
         Initialize the Messages API.
-        
+
         Args:
             client: SMTP client instance
         """
@@ -29,14 +29,14 @@ class MessagesApi:
     ) -> Dict[str, Any]:
         """
         Send a simple email.
-        
+
         Args:
             domain: Domain name
             message: Email message data
-            
+
         Returns:
             Send response
-            
+
         Raises:
             ApiException: For API errors
         """
@@ -55,15 +55,15 @@ class MessagesApi:
     ) -> Dict[str, Any]:
         """
         Send an email with attachments.
-        
+
         Args:
             domain: Domain name
             message: Email message data
             files: List of files to attach
-            
+
         Returns:
             Send response
-            
+
         Raises:
             ApiException: For API errors
         """
@@ -83,14 +83,14 @@ class MessagesApi:
     ) -> Dict[str, Any]:
         """
         Send a template email.
-        
+
         Args:
             domain: Domain name
             template: Template message data
-            
+
         Returns:
             Send response
-            
+
         Raises:
             ApiException: For API errors
         """
@@ -109,15 +109,15 @@ class MessagesApi:
     ) -> Dict[str, Any]:
         """
         Send a template email with attachments.
-        
+
         Args:
             domain: Domain name
             template: Template message data
             files: List of files to attach
-            
+
         Returns:
             Send response
-            
+
         Raises:
             ApiException: For API errors
         """
@@ -138,15 +138,15 @@ class MessagesApi:
     ) -> Dict[str, Any]:
         """
         Send bulk email to multiple recipients.
-        
+
         Args:
             domain: Domain name
             message: Email message data with 'to' as array
             files: Optional list of files to attach
-            
+
         Returns:
             Send response
-            
+
         Raises:
             ApiException: For API errors
         """
@@ -174,16 +174,16 @@ class MessagesApi:
     ) -> Dict[str, Any]:
         """
         Send email with attachment processing options.
-        
+
         Args:
             domain: Domain name
             message: Email message data
             files: List of files to attach
             attachment_options: Attachment processing options
-            
+
         Returns:
             Send response
-            
+
         Raises:
             ApiException: For API errors
         """
@@ -202,10 +202,10 @@ class MessagesApi:
     def _validate_email_message(self, message: Dict[str, Any]) -> None:
         """
         Validate email message data.
-        
+
         Args:
             message: Email message data
-            
+
         Raises:
             ApiException: For validation errors
         """
@@ -237,10 +237,10 @@ class MessagesApi:
     def _validate_template_message(self, template: Dict[str, Any]) -> None:
         """
         Validate template message data.
-        
+
         Args:
             template: Template message data
-            
+
         Raises:
             ApiException: For validation errors
         """
@@ -268,10 +268,10 @@ class MessagesApi:
     def _validate_bulk_message(self, message: Dict[str, Any]) -> None:
         """
         Validate bulk message data.
-        
+
         Args:
             message: Bulk message data
-            
+
         Raises:
             ApiException: For validation errors
         """
@@ -290,10 +290,10 @@ class MessagesApi:
     def _validate_files(self, files: List[Dict[str, Any]]) -> None:
         """
         Validate file upload data.
-        
+
         Args:
             files: List of file data
-            
+
         Raises:
             ApiException: For validation errors
         """
@@ -315,10 +315,10 @@ class MessagesApi:
     def _is_valid_email(self, email: str) -> bool:
         """
         Basic email validation.
-        
+
         Args:
             email: Email address to validate
-            
+
         Returns:
             True if valid, False otherwise
         """

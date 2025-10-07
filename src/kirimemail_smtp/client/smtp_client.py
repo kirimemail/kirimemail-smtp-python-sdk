@@ -20,7 +20,7 @@ from ..exceptions import (
 class SmtpClient:
     """
     HTTP client for the Kirim.Email SMTP API.
-    
+
     Provides methods for making HTTP requests with authentication,
     error handling, and support for multipart file uploads and streaming.
     """
@@ -35,7 +35,7 @@ class SmtpClient:
     ) -> None:
         """
         Initialize the SMTP client.
-        
+
         Args:
             username: Username for basic authentication
             token: Token for basic authentication
@@ -90,15 +90,15 @@ class SmtpClient:
     ) -> Dict[str, Any]:
         """
         Make an HTTP request with authentication and error handling.
-        
+
         Args:
             method: HTTP method
             endpoint: API endpoint
             **kwargs: Additional arguments for httpx request
-            
+
         Returns:
             Response data as dictionary
-            
+
         Raises:
             ApiException: For API errors
             AuthenticationException: For authentication errors
@@ -145,13 +145,13 @@ class SmtpClient:
     async def _handle_response(self, response: httpx.Response) -> Dict[str, Any]:
         """
         Handle HTTP response and raise appropriate exceptions.
-        
+
         Args:
             response: HTTP response object
-            
+
         Returns:
             Response data as dictionary
-            
+
         Raises:
             ApiException: For API errors
             AuthenticationException: For authentication errors
@@ -191,12 +191,12 @@ class SmtpClient:
     ) -> Dict[str, Any]:
         """
         Make a GET request.
-        
+
         Args:
             endpoint: API endpoint
             params: Query parameters
             headers: Additional headers
-            
+
         Returns:
             Response data as dictionary
         """
@@ -215,12 +215,12 @@ class SmtpClient:
     ) -> Dict[str, Any]:
         """
         Make a POST request with JSON data.
-        
+
         Args:
             endpoint: API endpoint
             data: Request data
             headers: Additional headers
-            
+
         Returns:
             Response data as dictionary
         """
@@ -240,13 +240,13 @@ class SmtpClient:
     ) -> Dict[str, Any]:
         """
         Make a POST request with multipart form data.
-        
+
         Args:
             endpoint: API endpoint
             data: Form data
             files: List of files to upload
             headers: Additional headers
-            
+
         Returns:
             Response data as dictionary
         """
@@ -292,12 +292,12 @@ class SmtpClient:
     ) -> Dict[str, Any]:
         """
         Make a PUT request.
-        
+
         Args:
             endpoint: API endpoint
             data: Request data
             headers: Additional headers
-            
+
         Returns:
             Response data as dictionary
         """
@@ -316,12 +316,12 @@ class SmtpClient:
     ) -> Dict[str, Any]:
         """
         Make a DELETE request.
-        
+
         Args:
             endpoint: API endpoint
             params: Query parameters
             headers: Additional headers
-            
+
         Returns:
             Response data as dictionary
         """
@@ -340,12 +340,12 @@ class SmtpClient:
     ) -> AsyncGenerator[Dict[str, Any], None]:
         """
         Stream response data (for log streaming).
-        
+
         Args:
             endpoint: API endpoint
             params: Query parameters
             headers: Additional headers
-            
+
         Yields:
             Parsed JSON objects from the stream
         """
@@ -401,7 +401,7 @@ class SmtpClient:
     def set_base_url(self, base_url: str) -> None:
         """
         Update the base URL for the API.
-        
+
         Args:
             base_url: New base URL
         """
@@ -411,7 +411,7 @@ class SmtpClient:
     def get_base_url(self) -> str:
         """
         Get the current base URL.
-        
+
         Returns:
             Current base URL
         """
@@ -420,7 +420,7 @@ class SmtpClient:
     def set_auth(self, username: str, token: str) -> None:
         """
         Update authentication credentials.
-        
+
         Args:
             username: Username for basic authentication
             token: Token for basic authentication
@@ -431,7 +431,7 @@ class SmtpClient:
     def has_auth(self) -> bool:
         """
         Check if authentication is configured.
-        
+
         Returns:
             True if authentication is configured
         """

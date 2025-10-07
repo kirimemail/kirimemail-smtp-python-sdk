@@ -16,7 +16,7 @@ class LogsApi:
     def __init__(self, client: SmtpClient) -> None:
         """
         Initialize the Logs API.
-        
+
         Args:
             client: SMTP client instance
         """
@@ -34,7 +34,7 @@ class LogsApi:
     ) -> Dict[str, Any]:
         """
         Get email logs for a domain.
-        
+
         Args:
             domain: Domain name
             limit: Number of logs per page
@@ -43,15 +43,15 @@ class LogsApi:
             end: End date filter
             sender: Sender email filter
             recipient: Recipient email filter
-            
+
         Returns:
             Log entries with pagination
         """
         params = {}
         if limit is not None:
-            params["limit"] = limit
+            params["limit"] = str(limit)
         if page is not None:
-            params["page"] = page
+            params["page"] = str(page)
         if start is not None:
             params["start"] = start.isoformat()
         if end is not None:
@@ -70,11 +70,11 @@ class LogsApi:
     ) -> Dict[str, Any]:
         """
         Get logs for a specific message.
-        
+
         Args:
             domain: Domain name
             message_guid: Message GUID
-            
+
         Returns:
             Message log entries
         """
@@ -91,7 +91,7 @@ class LogsApi:
     ) -> AsyncGenerator[Dict[str, Any], None]:
         """
         Stream email logs for a domain.
-        
+
         Args:
             domain: Domain name
             limit: Number of logs per page
@@ -99,13 +99,13 @@ class LogsApi:
             end: End date filter
             sender: Sender email filter
             recipient: Recipient email filter
-            
+
         Yields:
             Log entries
         """
         params = {}
         if limit is not None:
-            params["limit"] = limit
+            params["limit"] = str(limit)
         if start is not None:
             params["start"] = start.isoformat()
         if end is not None:
@@ -130,7 +130,7 @@ class LogsApi:
     ) -> Dict[str, Any]:
         """
         Get logs within a date range.
-        
+
         Args:
             domain: Domain name
             start_date: Start date
@@ -139,7 +139,7 @@ class LogsApi:
             page: Page number
             sender: Sender email filter
             recipient: Recipient email filter
-            
+
         Returns:
             Log entries with pagination
         """

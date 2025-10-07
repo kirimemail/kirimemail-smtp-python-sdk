@@ -8,7 +8,7 @@ from typing import Any, Dict, Optional
 class ApiException(Exception):
     """
     Base exception class for all API-related errors.
-    
+
     Attributes:
         message: Error message
         status_code: HTTP status code (optional)
@@ -39,7 +39,7 @@ class ApiException(Exception):
         if not self.errors:
             return []
 
-        error_messages = []
+        error_messages: list[str] = []
         for field_errors in self.errors.values():
             if isinstance(field_errors, list):
                 error_messages.extend(str(error) for error in field_errors)

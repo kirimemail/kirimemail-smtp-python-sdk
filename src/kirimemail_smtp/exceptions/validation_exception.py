@@ -10,7 +10,7 @@ from .api_exception import ApiException
 class ValidationException(ApiException):
     """
     Exception raised for validation errors.
-    
+
     Typically raised when the API returns 400 (Bad Request) or 422 (Unprocessable Entity).
     Contains detailed field-specific validation errors.
     """

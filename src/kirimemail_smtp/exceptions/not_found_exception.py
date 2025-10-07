@@ -10,7 +10,7 @@ from .api_exception import ApiException
 class NotFoundException(ApiException):
     """
     Exception raised when a requested resource is not found.
-    
+
     Typically raised when the API returns 404 (Not Found).
     """
 

@@ -15,7 +15,7 @@ class CredentialsApi:
     def __init__(self, client: SmtpClient) -> None:
         """
         Initialize the Credentials API.
-        
+
         Args:
             client: SMTP client instance
         """
@@ -29,12 +29,12 @@ class CredentialsApi:
     ) -> Dict[str, Any]:
         """
         List credentials for a domain.
-        
+
         Args:
             domain: Domain name
             limit: Number of credentials per page
             page: Page number
-            
+
         Returns:
             List of credentials with pagination
         """
@@ -53,11 +53,11 @@ class CredentialsApi:
     ) -> Dict[str, Any]:
         """
         Create a new SMTP credential.
-        
+
         Args:
             domain: Domain name
             username: Username for the credential
-            
+
         Returns:
             Created credential data
         """
@@ -71,11 +71,11 @@ class CredentialsApi:
     ) -> Dict[str, Any]:
         """
         Get credential details.
-        
+
         Args:
             domain: Domain name
             credential: Credential username
-            
+
         Returns:
             Credential data
         """
@@ -88,11 +88,11 @@ class CredentialsApi:
     ) -> Dict[str, Any]:
         """
         Delete a credential.
-        
+
         Args:
             domain: Domain name
             credential: Credential username
-            
+
         Returns:
             Deletion response
         """
@@ -105,11 +105,11 @@ class CredentialsApi:
     ) -> Dict[str, Any]:
         """
         Reset credential password.
-        
+
         Args:
             domain: Domain name
             credential: Credential username
-            
+
         Returns:
             New credential data
         """

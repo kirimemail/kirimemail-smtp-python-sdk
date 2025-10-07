@@ -10,7 +10,7 @@ from .api_exception import ApiException
 class AuthenticationException(ApiException):
     """
     Exception raised for authentication errors.
-    
+
     Typically raised when the API returns 401 (Unauthorized) or 403 (Forbidden).
     """
 
