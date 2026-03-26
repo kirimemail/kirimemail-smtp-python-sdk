@@ -2,9 +2,6 @@
 Credential model for SMTP credentials.
 """
 
-from datetime import datetime
-from typing import Optional
-
 from pydantic import BaseModel, Field
 
 
@@ -12,11 +9,12 @@ class Credential(BaseModel):
     """
     SMTP credential model.
     """
-    username: str = Field(..., description="Username for the SMTP credential")
+    id: int = Field(..., description="Database auto-increment ID (internal use only)")
+    user_smtp_guid: str = Field(..., description="Unique credential GUID used for API operations")
+    username: str = Field(..., description="SMTP username for authentication. Must be unique within domain")
     domain: str = Field(..., description="Domain name")
-    created_at: Optional[datetime] = Field(None, description="Creation timestamp")
-    updated_at: Optional[datetime] = Field(None, description="Last update timestamp")
-    is_active: Optional[bool] = Field(True, description="Whether the credential is active")
+    created_at: int = Field(..., description="Unix timestamp when credential was created")
+    modified_at: int = Field(..., description="Unix timestamp when credential was last modified")
 
     class Config:
         """Pydantic configuration."""

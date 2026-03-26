@@ -11,31 +11,31 @@ class Pagination(BaseModel):
     """
     Pagination metadata for API responses.
     """
-    total: int = Field(..., description="Total number of items")
-    per_page: int = Field(..., description="Number of items per page")
-    current_page: int = Field(..., description="Current page number")
-    last_page: int = Field(..., description="Last page number")
-
-    class Config:
-        """Pydantic configuration."""
-        populate_by_name = True
+    total: int = Field(..., description="Total number of items available across all pages")
+    page: int = Field(..., description="Current page number (1-based)")
+    limit: int = Field(..., description="Maximum number of items per page")
+    offset: int = Field(..., description="Number of items skipped from beginning (0-based)")
 
     @property
     def has_next(self) -> bool:
         """Check if there's a next page."""
-        return self.current_page < self.last_page
+        return (self.offset + self.limit) < self.total
 
     @property
     def has_previous(self) -> bool:
         """Check if there's a previous page."""
-        return self.current_page > 1
+        return self.offset > 0
 
     @property
-    def next_page(self) -> Optional[int]:
-        """Get the next page number."""
-        return self.current_page + 1 if self.has_next else None
+    def next_offset(self) -> Optional[int]:
+        """Get the next offset value."""
+        return self.offset + self.limit if self.has_next else None
 
     @property
-    def previous_page(self) -> Optional[int]:
-        """Get the previous page number."""
-        return self.current_page - 1 if self.has_previous else None
+    def previous_offset(self) -> Optional[int]:
+        """Get the previous offset value."""
+        return self.offset - self.limit if self.has_previous else None
+
+    class Config:
+        """Pydantic configuration."""
+        populate_by_name = True

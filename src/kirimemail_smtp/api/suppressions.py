@@ -2,8 +2,7 @@
 Suppressions API for email suppression management.
 """
 
-from datetime import datetime
-from typing import Any, Optional
+from typing import Any
 
 from ..client.smtp_client import SmtpClient
 
@@ -210,28 +209,91 @@ class SuppressionsApi:
 
         return await self.client.get(f"/api/domains/{domain}/suppressions", params=params)
 
-    async def get_suppressions_created_after(
+    async def delete_unsubscribe_suppressions(
         self,
         domain: str,
-        start_date: datetime,
-        additional_params: Optional[dict[str, Any]] = None,
+        ids: list[int],
     ) -> dict[str, Any]:
         """
-        Get suppressions created after a date.
+        Delete unsubscribe suppressions by IDs.
 
         Args:
             domain: Domain name
-            start_date: Start date
-            additional_params: Additional query parameters
+            ids: Array of suppression IDs to delete
 
         Returns:
-            Suppressions with pagination
+            Deletion response
         """
-        params = {
-            "created_after": start_date.isoformat(),
+        data = {"ids": ids}
+        return await self.client.delete(f"/api/domains/{domain}/suppressions/unsubscribes", data=data)
+
+    async def delete_bounce_suppressions(
+        self,
+        domain: str,
+        ids: list[int],
+    ) -> dict[str, Any]:
+        """
+        Delete bounce suppressions by IDs.
+
+        Args:
+            domain: Domain name
+            ids: Array of suppression IDs to delete
+
+        Returns:
+            Deletion response
+        """
+        data = {"ids": ids}
+        return await self.client.delete(f"/api/domains/{domain}/suppressions/bounces", data=data)
+
+    async def delete_whitelist_suppressions(
+        self,
+        domain: str,
+        ids: list[int],
+    ) -> dict[str, Any]:
+        """
+        Delete whitelist suppressions by IDs.
+
+        Args:
+            domain: Domain name
+            ids: Array of suppression IDs to delete
+
+        Returns:
+            Deletion response
+        """
+        data = {"ids": ids}
+        return await self.client.delete(f"/api/domains/{domain}/suppressions/whitelist", data=data)
+
+    async def create_whitelist_suppression(
+        self,
+        domain: str,
+        recipient: str,
+        recipient_type: str,
+        description: Optional[str] = None,
+    ) -> dict[str, Any]:
+        """
+        Create a new whitelist suppression.
+
+        Args:
+            domain: Domain name
+            recipient: Email or domain to whitelist
+            recipient_type: Type of recipient (email or domain)
+            description: Optional description
+
+        Returns:
+            Created whitelist suppression data
+
+        Raises:
+            ValueError: If recipient_type is invalid
+        """
+        valid_types = ["email", "domain"]
+        if recipient_type not in valid_types:
+            raise ValueError(f"Invalid recipient type. Must be one of: {', '.join(valid_types)}")
+
+        data = {
+            "recipient": recipient,
+            "recipient_type": recipient_type,
         }
+        if description is not None:
+            data["description"] = description
 
-        if additional_params:
-            params.update(additional_params)
-
-        return await self.client.get(f"/api/domains/{domain}/suppressions", params=params)
+        return await self.client.post(f"/api/domains/{domain}/suppressions/whitelist", data=data)

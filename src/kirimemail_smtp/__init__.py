@@ -1,14 +1,17 @@
 """
 Kirim.Email SMTP Python SDK
 
-A modern, type-safe Python client for the Kirim.Email SMTP API.
+A modern, type-safe Python client for Kirim.Email SMTP API.
 """
 
 from .api.credentials import CredentialsApi
 from .api.domains import DomainsApi
+from .api.email_validation import EmailValidationApi
 from .api.logs import LogsApi
 from .api.messages import MessagesApi
 from .api.suppressions import SuppressionsApi
+from .api.user import UserApi
+from .api.webhooks import WebhooksApi
 from .client.smtp_client import SmtpClient
 from .exceptions import (
     ApiException,
@@ -29,6 +32,9 @@ __all__ = [
     "CredentialsApi",
     "LogsApi",
     "SuppressionsApi",
+    "EmailValidationApi",
+    "UserApi",
+    "WebhooksApi",
     "ApiException",
     "AuthenticationException",
     "ValidationException",
