@@ -2,7 +2,7 @@
 Suppressions API for email suppression management.
 """
 
-from typing import Any
+from typing import Any, Optional
 
 from ..client.smtp_client import SmtpClient
 

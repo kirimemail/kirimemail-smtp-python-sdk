@@ -313,6 +313,7 @@ class SmtpClient:
         self,
         endpoint: str,
         params: Optional[dict[str, Any]] = None,
+        data: Optional[dict[str, Any]] = None,
         headers: Optional[dict[str, str]] = None,
     ) -> dict[str, Any]:
         """
@@ -321,16 +322,24 @@ class SmtpClient:
         Args:
             endpoint: API endpoint
             params: Query parameters
+            data: Request body data
             headers: Additional headers
 
         Returns:
             Response data as dictionary
         """
+        kwargs = {}
+        if params is not None:
+            kwargs["params"] = params
+        if data is not None:
+            kwargs["json"] = data
+        if headers is not None:
+            kwargs["headers"] = headers
+
         return await self._make_request(
             "DELETE",
             endpoint,
-            params=params,
-            headers=headers,
+            **kwargs
         )
 
     async def stream(

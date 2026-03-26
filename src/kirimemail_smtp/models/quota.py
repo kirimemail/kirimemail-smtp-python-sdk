@@ -15,8 +15,8 @@ class Quota(BaseModel):
 
     @property
     def remaining(self) -> int:
-        """Calculate remaining quota."""
-        return self.max_quota - self.current_quota
+        """Get remaining available quota (same as current_quota)."""
+        return self.current_quota
 
     @property
     def usage(self) -> int:
