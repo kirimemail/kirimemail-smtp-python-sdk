@@ -218,6 +218,7 @@ Retrieve and stream email logs:
 
 ```python
 from kirimemail_smtp import LogsApi
+from kirimemail_smtp.models import LogEntry
 
 logs_api = LogsApi(client)
 
@@ -230,6 +231,30 @@ logs = await logs_api.get_logs("example.com", {
     "recipient": "recipient@example.com"
 })
 
+# Filter by event type (queued, delivered, bounced, failed, opened, clicked, unsubscribed, etc.)
+logs = await logs_api.get_logs("example.com", {
+    "event_type": "delivered"
+})
+
+# Or use the helper method with constants
+logs = await logs_api.get_logs_by_event_type("example.com", LogEntry.SMTP_EVENT_DELIVERED)
+
+# Filter by tags (partial match)
+logs = await logs_api.get_logs("example.com", {
+    "tags": "newsletter"
+})
+
+# Or use the helper method
+logs = await logs_api.get_logs_by_tags("example.com", "newsletter")
+
+# Combine filters
+logs = await logs_api.get_logs("example.com", {
+    "event_type": "bounced",
+    "tags": "marketing",
+    "start": "2023-01-01T00:00:00Z",
+    "limit": 100
+})
+
 # Get logs for specific message
 logs = await logs_api.get_message_logs("example.com", "message-guid")
 
@@ -240,6 +265,13 @@ async for log_entry in logs_api.stream_logs("example.com", {
     "end": "2023-12-31T23:59:59Z"
 }):
     print(f"Log: {log_entry}")
+
+# Stream with event_type filter
+async for log_entry in logs_api.stream_logs("example.com", {
+    "event_type": "delivered",
+    "limit": 5000
+}):
+    print(f"Delivered: {log_entry}")
 ```
 
 ### Suppressions API
@@ -429,6 +461,22 @@ email_validation = EmailValidationResult(
     validated_at="2024-01-01T12:00:00Z",
     is_spamtrap=False
 )
+
+# LogEntry event type constants
+LogEntry.SMTP_EVENT_QUEUED        # 'queued'
+LogEntry.SMTP_EVENT_SEND          # 'send'
+LogEntry.SMTP_EVENT_DELIVERED     # 'delivered'
+LogEntry.SMTP_EVENT_BOUNCED       # 'bounced'
+LogEntry.SMTP_EVENT_FAILED        # 'failed'
+LogEntry.SMTP_EVENT_PERMANENT_FAIL  # 'permanent_fail'
+LogEntry.SMTP_EVENT_OPENED        # 'opened'
+LogEntry.SMTP_EVENT_CLICKED       # 'clicked'
+LogEntry.SMTP_EVENT_UNSUBSCRIBED  # 'unsubscribed'
+LogEntry.SMTP_EVENT_TEMP_FAILURE  # 'temp_fail'
+LogEntry.SMTP_EVENT_DEFERRED      # 'deferred'
+
+# All valid event types
+print(LogEntry.VALID_EVENT_TYPES)
 ```
 
 ## Development

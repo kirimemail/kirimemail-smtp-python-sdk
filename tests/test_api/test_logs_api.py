@@ -7,6 +7,7 @@ from datetime import datetime
 from unittest.mock import AsyncMock, patch
 
 from kirimemail_smtp.api.logs import LogsApi
+from kirimemail_smtp.models.log_entry import LogEntry
 
 
 class TestLogsApi:
@@ -156,3 +157,109 @@ class TestLogsApi:
                 "sender": "test@example.com"
             }
         )
+
+    @pytest.mark.asyncio
+    async def test_get_logs_with_event_type_filter(self, mock_smtp_client):
+        """Test getting logs with event_type filter."""
+        mock_response = {
+            "success": True,
+            "data": [
+                {"message_guid": "msg-1", "event_type": "bounced", "recipient": "user@example.com"}
+            ],
+            "count": 1,
+            "offset": 0,
+            "limit": 1000
+        }
+
+        mock_smtp_client.get.return_value = mock_response
+
+        api = LogsApi(mock_smtp_client)
+        result = await api.get_logs(domain="example.com", event_type="bounced")
+
+        assert result["success"] is True
+        mock_smtp_client.get.assert_called_once_with(
+            "/api/domains/example.com/log",
+            params={"event_type": "bounced"}
+        )
+
+    @pytest.mark.asyncio
+    async def test_get_logs_with_tags_filter(self, mock_smtp_client):
+        """Test getting logs with tags filter."""
+        mock_response = {
+            "success": True,
+            "data": [
+                {"message_guid": "msg-1", "tags": ["newsletter", "marketing"], "recipient": "user@example.com"}
+            ],
+            "count": 1,
+            "offset": 0,
+            "limit": 1000
+        }
+
+        mock_smtp_client.get.return_value = mock_response
+
+        api = LogsApi(mock_smtp_client)
+        result = await api.get_logs(domain="example.com", tags="newsletter")
+
+        assert result["success"] is True
+        mock_smtp_client.get.assert_called_once_with(
+            "/api/domains/example.com/log",
+            params={"tags": "newsletter"}
+        )
+
+    @pytest.mark.asyncio
+    async def test_get_logs_by_event_type(self, mock_smtp_client):
+        """Test getting logs by event type helper method."""
+        mock_response = {
+            "success": True,
+            "data": [
+                {"message_guid": "msg-1", "event_type": "delivered", "recipient": "user@example.com"}
+            ],
+            "count": 1,
+            "offset": 0,
+            "limit": 1000
+        }
+
+        mock_smtp_client.get.return_value = mock_response
+
+        api = LogsApi(mock_smtp_client)
+        result = await api.get_logs_by_event_type(domain="example.com", event_type=LogEntry.SMTP_EVENT_DELIVERED)
+
+        assert result["success"] is True
+        mock_smtp_client.get.assert_called_once_with(
+            "/api/domains/example.com/log",
+            params={"event_type": "delivered"}
+        )
+
+    @pytest.mark.asyncio
+    async def test_get_logs_by_tags(self, mock_smtp_client):
+        """Test getting logs by tags helper method."""
+        mock_response = {
+            "success": True,
+            "data": [
+                {"message_guid": "msg-1", "tags": ["newsletter"], "recipient": "user@example.com"}
+            ],
+            "count": 1,
+            "offset": 0,
+            "limit": 1000
+        }
+
+        mock_smtp_client.get.return_value = mock_response
+
+        api = LogsApi(mock_smtp_client)
+        result = await api.get_logs_by_tags(domain="example.com", tags="newsletter")
+
+        assert result["success"] is True
+        mock_smtp_client.get.assert_called_once_with(
+            "/api/domains/example.com/log",
+            params={"tags": "newsletter"}
+        )
+
+    @pytest.mark.asyncio
+    async def test_get_logs_invalid_event_type(self, mock_smtp_client):
+        """Test getting logs with invalid event_type raises exception."""
+        api = LogsApi(mock_smtp_client)
+
+        with pytest.raises(Exception) as exc_info:
+            await api.get_logs(domain="example.com", event_type="invalid_type")
+
+        assert "Invalid event_type" in str(exc_info.value)

@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.3.0] - 2026-03-29
+
+### Added
+- `event_type` filter support for log retrieval
+- `tags` filter support for log retrieval
+- `get_logs_by_event_type()` method for filtering logs by event type
+- `get_logs_by_tags()` method for filtering logs by tags
+- Event type validation in LogsApi
+- Event type constants in LogEntry model (SMTP_EVENT_QUEUED, SMTP_EVENT_DELIVERED, etc.)
+- `subject` filter parameter for log retrieval
+
 ## [Unreleased]
 
 ### Changed
