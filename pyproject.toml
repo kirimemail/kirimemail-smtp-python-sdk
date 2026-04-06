@@ -7,7 +7,7 @@ packages = ["src/kirimemail_smtp"]
 
 [project]
 name = "kirimemail-smtp-sdk"
-version = "1.3.0"
+version = "1.4.0"
 description = "Python SDK for Kirim.Email SMTP API"
 authors = [{name = "Kirim.Email", email = "support@kirim.email"}]
 license = {text = "MIT"}
