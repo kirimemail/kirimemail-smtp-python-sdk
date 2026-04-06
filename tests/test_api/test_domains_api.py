@@ -123,7 +123,6 @@ class TestDomainsApi:
         domain_name = "example.com"
         mock_response = {
             "success": True,
-            "message": "Domain deleted successfully"
         }
         
         mock_smtp_client.delete.return_value = mock_response
@@ -131,7 +130,7 @@ class TestDomainsApi:
         api = DomainsApi(mock_smtp_client)
         result = await api.delete_domain(domain_name)
         
-        assert result["success"] is True
+        assert result is None
         mock_smtp_client.delete.assert_called_once_with(f"/api/domains/{domain_name}")
     
     @pytest.mark.asyncio

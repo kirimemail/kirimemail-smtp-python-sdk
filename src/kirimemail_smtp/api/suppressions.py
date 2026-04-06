@@ -213,7 +213,7 @@ class SuppressionsApi:
         self,
         domain: str,
         ids: list[int],
-    ) -> dict[str, Any]:
+    ) -> None:
         """
         Delete unsubscribe suppressions by IDs.
 
@@ -222,16 +222,16 @@ class SuppressionsApi:
             ids: Array of suppression IDs to delete
 
         Returns:
-            Deletion response
+            None
         """
         data = {"ids": ids}
-        return await self.client.delete(f"/api/domains/{domain}/suppressions/unsubscribes", data=data)
+        await self.client.delete(f"/api/domains/{domain}/suppressions/unsubscribes", data=data)
 
     async def delete_bounce_suppressions(
         self,
         domain: str,
         ids: list[int],
-    ) -> dict[str, Any]:
+    ) -> None:
         """
         Delete bounce suppressions by IDs.
 
@@ -240,16 +240,16 @@ class SuppressionsApi:
             ids: Array of suppression IDs to delete
 
         Returns:
-            Deletion response
+            None
         """
         data = {"ids": ids}
-        return await self.client.delete(f"/api/domains/{domain}/suppressions/bounces", data=data)
+        await self.client.delete(f"/api/domains/{domain}/suppressions/bounces", data=data)
 
     async def delete_whitelist_suppressions(
         self,
         domain: str,
         ids: list[int],
-    ) -> dict[str, Any]:
+    ) -> None:
         """
         Delete whitelist suppressions by IDs.
 
@@ -258,10 +258,10 @@ class SuppressionsApi:
             ids: Array of suppression IDs to delete
 
         Returns:
-            Deletion response
+            None
         """
         data = {"ids": ids}
-        return await self.client.delete(f"/api/domains/{domain}/suppressions/whitelist", data=data)
+        await self.client.delete(f"/api/domains/{domain}/suppressions/whitelist", data=data)
 
     async def create_whitelist_suppression(
         self,

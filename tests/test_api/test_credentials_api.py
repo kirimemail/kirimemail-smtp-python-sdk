@@ -117,7 +117,6 @@ class TestCredentialsApi:
         """Test deleting a credential."""
         mock_response = {
             "success": True,
-            "message": "Credential deleted successfully"
         }
         
         mock_smtp_client.delete.return_value = mock_response
@@ -125,5 +124,5 @@ class TestCredentialsApi:
         api = CredentialsApi(mock_smtp_client)
         result = await api.delete_credential(domain="example.com", credential="test@example.com")
         
-        assert result["success"] is True
+        assert result is None
         mock_smtp_client.delete.assert_called_once_with("/api/domains/example.com/credentials/test@example.com")

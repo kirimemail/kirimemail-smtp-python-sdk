@@ -149,7 +149,7 @@ class WebhooksApi:
         self,
         domain: str,
         webhook_guid: str,
-    ) -> dict[str, Any]:
+    ) -> None:
         """
         Delete a webhook.
 
@@ -158,9 +158,9 @@ class WebhooksApi:
             webhook_guid: Unique identifier (GUID) of webhook to delete
 
         Returns:
-            Deletion response
+            None
         """
-        return await self.client.delete(f"/api/domains/{domain}/webhooks/{webhook_guid}")
+        await self.client.delete(f"/api/domains/{domain}/webhooks/{webhook_guid}")
 
     async def test_webhook(
         self,

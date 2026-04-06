@@ -99,7 +99,7 @@ class DomainsApi:
         """
         return await self.client.put(f"/api/domains/{domain}", data=config)
 
-    async def delete_domain(self, domain: str) -> dict[str, Any]:
+    async def delete_domain(self, domain: str) -> None:
         """
         Delete a domain.
 
@@ -107,9 +107,9 @@ class DomainsApi:
             domain: Domain name
 
         Returns:
-            Deletion response
+            None
         """
-        return await self.client.delete(f"/api/domains/{domain}")
+        await self.client.delete(f"/api/domains/{domain}")
 
     async def setup_auth_domain(
         self,
@@ -181,3 +181,27 @@ class DomainsApi:
             Verification response
         """
         return await self.client.post(f"/api/domains/{domain}/verify-tracklink")
+
+    async def delete_auth_domain(self, domain: str) -> None:
+        """
+        Delete authentication domain.
+
+        Args:
+            domain: Domain name
+
+        Returns:
+            None
+        """
+        await self.client.delete(f"/api/domains/{domain}/auth-domain")
+
+    async def delete_tracking_domain(self, domain: str) -> None:
+        """
+        Delete tracking domain.
+
+        Args:
+            domain: Domain name
+
+        Returns:
+            None
+        """
+        await self.client.delete(f"/api/domains/{domain}/tracklink")

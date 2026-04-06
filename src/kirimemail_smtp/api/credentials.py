@@ -85,7 +85,7 @@ class CredentialsApi:
         self,
         domain: str,
         credential: str,
-    ) -> dict[str, Any]:
+    ) -> None:
         """
         Delete a credential.
 
@@ -94,9 +94,9 @@ class CredentialsApi:
             credential: Credential username
 
         Returns:
-            Deletion response
+            None
         """
-        return await self.client.delete(f"/api/domains/{domain}/credentials/{credential}")
+        await self.client.delete(f"/api/domains/{domain}/credentials/{credential}")
 
     async def reset_password(
         self,
