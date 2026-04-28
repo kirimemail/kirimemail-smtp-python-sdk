@@ -264,10 +264,9 @@ class SmtpClient:
                 else:
                     multipart_data[key] = str(value)
 
-        # Add files
+        # Add files with "attachments" naming to match API expectations
         if files:
             for file_info in files:
-                field = file_info["field"]
                 filename = file_info["filename"]
                 content = file_info["content"]
                 content_type = file_info.get("content_type", "application/octet-stream")
@@ -275,7 +274,7 @@ class SmtpClient:
                 if isinstance(content, str):
                     content = content.encode()
 
-                files_data[field] = (filename, content, content_type)
+                files_data["attachments"] = (filename, content, content_type)
 
         return await self._make_request(
             "POST",
