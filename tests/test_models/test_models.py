@@ -12,8 +12,11 @@ from kirimemail_smtp.models import (
     EmailValidationResult,
     EmailValidationBatchResult,
     LogEntry,
+    MessageRecipient,
     Pagination,
     Quota,
+    SendMessageResponse,
+    SendTemplateMessageResponse,
     Suppression,
     Webhook,
 )
@@ -459,3 +462,55 @@ class TestSuppression:
                 recipient="user@example.com",
                 created_at=1672531200
             )
+
+
+class TestSendMessageResponse:
+    """Test cases for send message response models."""
+
+    def test_send_message_response_with_messages(self):
+        """Test send response including per-recipient message GUIDs."""
+        data = {
+            "success": True,
+            "message": "Email send jobs dispatched for 2 recipient(s)",
+            "messages": [
+                {"to": "user1@example.com", "message_guid": "0193f3c4-aaaa-bbbb-cccc-000000000001"},
+                {"to": "user2@example.com", "message_guid": "0193f3c4-aaaa-bbbb-cccc-000000000002"},
+            ],
+        }
+
+        response = SendMessageResponse(**data)
+
+        assert response.success is True
+        assert response.messages is not None
+        assert len(response.messages) == 2
+        assert response.messages[0].to == "user1@example.com"
+        assert response.messages[0].message_guid == "0193f3c4-aaaa-bbbb-cccc-000000000001"
+
+    def test_send_message_response_without_messages(self):
+        """Test send response stays valid when messages is omitted."""
+        response = SendMessageResponse(success=True, message="Email sent")
+
+        assert response.success is True
+        assert response.messages is None
+
+    def test_send_template_message_response_with_messages(self):
+        """Test template send response including per-recipient message GUIDs."""
+        data = {
+            "success": True,
+            "message": "Template-based email jobs dispatched for 1 recipient(s)",
+            "template_guid": "550e8400-e29b-41d4-a716-446655440000",
+            "template_name": "Welcome Email",
+            "messages": [
+                {"to": "user@example.com", "message_guid": "0193f3c4-aaaa-bbbb-cccc-000000000003"},
+            ],
+        }
+
+        response = SendTemplateMessageResponse(**data)
+
+        assert response.success is True
+        assert response.template_guid == "550e8400-e29b-41d4-a716-446655440000"
+        assert response.template_name == "Welcome Email"
+        assert response.messages is not None
+        assert len(response.messages) == 1
+        assert isinstance(response.messages[0], MessageRecipient)
+        assert response.messages[0].message_guid == "0193f3c4-aaaa-bbbb-cccc-000000000003"

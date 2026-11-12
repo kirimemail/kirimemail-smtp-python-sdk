@@ -24,7 +24,10 @@ class TestMessagesApi:
         """Test sending a message."""
         mock_smtp_client.post.return_value = {
             "success": True,
-            "message": "Message sent successfully",
+            "message": "Email send jobs dispatched for 1 recipient(s)",
+            "messages": [
+                {"to": "recipient@example.com", "message_guid": "0193f3c4-aaaa-bbbb-cccc-000000000001"}
+            ],
             "data": {"message_id": "msg-123"}
         }
         
@@ -33,6 +36,9 @@ class TestMessagesApi:
         
         assert result["success"] is True
         assert result["data"]["message_id"] == "msg-123"
+        assert len(result["messages"]) == 1
+        assert result["messages"][0]["to"] == "recipient@example.com"
+        assert result["messages"][0]["message_guid"] == "0193f3c4-aaaa-bbbb-cccc-000000000001"
         mock_smtp_client.post.assert_called_once_with("/api/domains/example.com/message", data=sample_email_message)
     
     @pytest.mark.asyncio
@@ -40,7 +46,12 @@ class TestMessagesApi:
         """Test sending a template message."""
         mock_smtp_client.post.return_value = {
             "success": True,
-            "message": "Template message sent successfully",
+            "message": "Template-based email jobs dispatched for 1 recipient(s)",
+            "template_guid": "550e8400-e29b-41d4-a716-446655440000",
+            "template_name": "Welcome Email",
+            "messages": [
+                {"to": "recipient@example.com", "message_guid": "0193f3c4-aaaa-bbbb-cccc-000000000002"}
+            ],
             "data": {"message_id": "msg-template-123"}
         }
         
@@ -48,6 +59,10 @@ class TestMessagesApi:
         result = await api.send_template_message("example.com", sample_template_message)
         
         assert result["success"] is True
+        assert result["template_guid"] == "550e8400-e29b-41d4-a716-446655440000"
+        assert result["template_name"] == "Welcome Email"
+        assert len(result["messages"]) == 1
+        assert result["messages"][0]["message_guid"] == "0193f3c4-aaaa-bbbb-cccc-000000000002"
         assert result["data"]["message_id"] == "msg-template-123"
         mock_smtp_client.post.assert_called_once_with("/api/domains/example.com/message/template", data=sample_template_message)
     
