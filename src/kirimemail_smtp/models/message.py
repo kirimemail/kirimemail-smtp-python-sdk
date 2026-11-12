@@ -2,7 +2,7 @@
 Message send response models for email sending endpoints.
 """
 
-from typing import Any, Dict, List, Optional
+from typing import Any, Optional
 
 from pydantic import BaseModel, Field
 
@@ -33,13 +33,13 @@ class SendMessageResponse(BaseModel):
         description="Detailed success message including recipient count, "
         "job batching information, and attachment count",
     )
-    messages: Optional[List[MessageRecipient]] = Field(
+    messages: Optional[list[MessageRecipient]] = Field(
         default=None,
         description="Per-recipient message GUIDs, also sent as the "
         "X-Message-Guid header on each email for delivery tracking "
         "and log correlation",
     )
-    data: Optional[Dict[str, Any]] = Field(default=None, description="Additional response data")
+    data: Optional[dict[str, Any]] = Field(default=None, description="Additional response data")
 
     class Config:
         """Pydantic configuration."""
@@ -55,13 +55,13 @@ class SendTemplateMessageResponse(BaseModel):
     message: Optional[str] = Field(default=None, description="Detailed success message")
     template_guid: Optional[str] = Field(default=None, description="UUID of the template used")
     template_name: Optional[str] = Field(default=None, description="Name of the template used")
-    messages: Optional[List[MessageRecipient]] = Field(
+    messages: Optional[list[MessageRecipient]] = Field(
         default=None,
         description="Per-recipient message GUIDs, also sent as the "
         "X-Message-Guid header on each email for delivery tracking "
         "and log correlation",
     )
-    data: Optional[Dict[str, Any]] = Field(default=None, description="Additional response data")
+    data: Optional[dict[str, Any]] = Field(default=None, description="Additional response data")
 
     class Config:
         """Pydantic configuration."""
