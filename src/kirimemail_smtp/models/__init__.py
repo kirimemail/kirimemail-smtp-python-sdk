@@ -7,6 +7,7 @@ from .domain import Domain
 from .email_validation_batch_result import EmailValidationBatchResult
 from .email_validation_result import EmailValidationResult
 from .log_entry import LogEntry
+from .message import MessageRecipient, SendMessageResponse, SendTemplateMessageResponse
 from .pagination import Pagination
 from .quota import Quota
 from .suppression import Suppression
@@ -18,7 +19,10 @@ __all__ = [
     "EmailValidationBatchResult",
     "EmailValidationResult",
     "LogEntry",
+    "MessageRecipient",
     "Pagination",
+    "SendMessageResponse",
+    "SendTemplateMessageResponse",
     "Quota",
     "Suppression",
     "Webhook",
